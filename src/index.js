@@ -1,5 +1,6 @@
 require('dotenv').config(); // sorito_bot
 const TelegramBot = require('node-telegram-bot-api');
+const AdmResponse = require('./AdmResponse.js');
 
 // replace the value below with the Telegram token you receive from @BotFather
 const token = process.env.TELEGRAM_BOT_TOKEN;
@@ -11,6 +12,7 @@ const ADM_PREFIX = `adm ${admPassword} `;
 const bot = new TelegramBot(token, { polling: true });
 
 bot.on('message', async (msg) => {
+  console.log(msg);
   const chatId = msg.chat.id;
   msg.text.toLowerCase();
 
@@ -31,11 +33,11 @@ bot.on('message', async (msg) => {
     if(msg.chat.type === 'private' && msg.text.startsWith(ADM_PREFIX)){
       console.log("Notice Group Time");
       const noticeGroup = msg.text.trim().substring(ADM_PREFIX.length);
-      bot.sendMessage(chatId, noticeGroup);
+      bot.sendMessage(chatId, AdmResponse(true, noticeGroup, msg.from.first_name));
     } 
     else {
       console.log("INVALID COMMAND");
-      bot.sendMessage(chatId, noticeGroup);
+      bot.sendMessage(chatId, AdmResponse(true, noticeGroup, msg.from.first_name));
     }
 
   }
