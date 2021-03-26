@@ -1,4 +1,4 @@
-class InitGroup {
+class SaveGroupData {
     constructor(groupData, userData){
         this.data = groupData;
         this.data = userData;
@@ -9,3 +9,5 @@ class InitGroup {
         // Write group id in a json file
     }
 }
+
+module.exports = SaveGroupData;
