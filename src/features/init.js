@@ -1,12 +1,15 @@
+const fs = require('fs');
+
 class SaveGroupData {
-    constructor(groupData, userData){
+    constructor(groupData){
         this.data = groupData;
-        this.data = userData;
     }
 
-    register(){
+    async register(){
         // Verify if user is admin
         // Write group id in a json file
+
+
     }
 }
 
