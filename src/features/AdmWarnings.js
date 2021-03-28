@@ -11,24 +11,28 @@ class AdmWarnings {
         let msgResponse;
         if(this.cmdType === true && this.msg.length != 0)
             msgResponse = writeAdmWarningInDataBase(this.msg, this.userName);
-        else if(this.cmdType === true && this.msg.length === 0)
-            msgResponse = admWarningEmpty();
-        else if(this.cmdType === false)
+        else
             msgResponse = invalidCommand();
         return msgResponse;
     }
 }
 
-function writeAdmWarningInDataBase(msg, userName){
-    return `COMANDO AUTORIZADO. O SEU AVISO: \n\n\n "${msg}" \n\n\n SERÁ REPASSADO AO GRUPO.`;
-}
+async function writeAdmWarningInDataBase(msg, userName){
+    let isError = false;
+    const jsonData = userName + " | " + msg;  
+    fs.writeFile('DataBase/Notice.json', JSON.stringify(jsonData, null, 4), err => {
+        if(err) isError = true;
+        console.log(`ERR = ${isError}`);
+    });
 
-function admWarningEmpty(){
-    return `VOCÊ NÃO INFORMOU O AVISO QUE DESEJA REPASSAR AO GRUPO. TENTE NOVAMENTE.`;
+    if(isError) return "DESCULPE, ESTOU TENTO DIFICULDADE EM ENTENDER O SEU COMANDO. TENTE USAR O /help." 
+    
+    else return `COMANDO AUTORIZADO. O SEU AVISO: \n\n\n "${msg}" \n\n\n SERÁ REPASSADO AO GRUPO.`; 
+    
 }
 
 function invalidCommand(){
-    return `COMANDO INVÁLIDO. DIGITE /HELP PARA VERIFICAR A LISTA DE COMANDOS.!`;
+    return "DESCULPE, ESTOU TENTO DIFICULDADE EM ENTENDER O SEU COMANDO. TENTE USAR O /help.";
 }
 
 module.exports = AdmWarnings;
