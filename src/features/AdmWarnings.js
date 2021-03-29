@@ -19,11 +19,10 @@ class AdmWarnings {
 
 async function writeAdmWarningInDataBase(msg, userName){
     let isError = false;
-    const jsonData = userName + " | " + msg;  
-    fs.writeFile('DataBase/Notice.json', JSON.stringify(jsonData, null, 2), err => {
-        if(err) isError = true;
-        console.log(`ERR = ${isError}`);
-    });
+    const jsonData = { name: userName, warning: msg };  
+    
+    const err = fs.writeFileSync('DataBase/Notice.json', JSON.stringify(jsonData, null, 4));
+    if(err) console.log(`err = ${err}`);
 
     if(isError) return "Não entendi. Tente usar o /help." 
     
