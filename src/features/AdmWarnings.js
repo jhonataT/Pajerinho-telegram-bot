@@ -20,19 +20,19 @@ class AdmWarnings {
 async function writeAdmWarningInDataBase(msg, userName){
     let isError = false;
     const jsonData = userName + " | " + msg;  
-    fs.writeFile('DataBase/Notice.json', JSON.stringify(jsonData, null, 4), err => {
+    fs.writeFile('DataBase/Notice.json', JSON.stringify(jsonData, null, 2), err => {
         if(err) isError = true;
         console.log(`ERR = ${isError}`);
     });
 
-    if(isError) return "DESCULPE, ESTOU TENTO DIFICULDADE EM ENTENDER O SEU COMANDO. TENTE USAR O /help." 
+    if(isError) return "Não entendi. Tente usar o /help." 
     
-    else return `COMANDO AUTORIZADO. O SEU AVISO: \n\n\n "${msg}" \n\n\n SERÁ REPASSADO AO GRUPO.`; 
+    else return `Pronto, vou enviar o seu aviso: \n\n\n "${msg}" \n\n\n para o grupo.`; 
     
 }
 
 function invalidCommand(){
-    return "DESCULPE, ESTOU TENTO DIFICULDADE EM ENTENDER O SEU COMANDO. TENTE USAR O /help.";
+    return "Não entendi. Tente usar o /help.";
 }
 
 module.exports = AdmWarnings;
