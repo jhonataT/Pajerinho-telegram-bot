@@ -7,23 +7,15 @@ class SaveGroupData {
 
     async register(){
         // Write group id in a JSON file
-        let idExist = false;
         let isErr = false;
-        console.log(this.data.id);
 
         let groupData = fs.readFileSync('Database/Groups.json');
-        groupData = groupData.toString().split('}');
-
-        groupData.map( data => {
-            console.log(this.data.id);
-            if(data.indexOf(this.data.id) != -1)
-            idExist = true;
-        });
-        
-        if(idExist){
-            console.log(true);
-            return `Eu já cadastrei esse grupo antes`;  
-        } 
+        groupData = groupData.toString();
+        if(groupData){
+            groupData = JSON.parse(groupData);
+            console.log(groupData);
+            return `Já tenho cadastro no `;
+        }
 
         await fs.appendFile('Database/Groups.json', JSON.stringify(this.data, null, 4), err => {
             if(err) isErr = true;
