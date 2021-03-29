@@ -15,11 +15,14 @@ const bot = new TelegramBot(token, { polling: true });
 
 bot.on('message', async (msg) => {
   const chatId = msg.chat.id;
+  console.log(msg);
+  
+  if(msg.text === undefined) return; // if contents is a media
+
   msg.text = msg.text.toLowerCase();
   
   console.log(`\n${msg.from.first_name} says in ${msg.chat.type}: ${msg.text}\n`);
 
-  console.log(msg);
 
   if(msg.chat.type === 'private'){
     const noticeGroup = msg.text.trim().substring(ADM_PREFIX.length).toUpperCase();
@@ -49,7 +52,11 @@ bot.on('message', async (msg) => {
         id: msg.chat.id,
         name: msg.chat.title
       }
+
       const initGroup = new SaveGroupData(groupData);
+      const initReturn = await initGroup.register();
+      console.log(initReturn);
+      bot.sendMessage(chatId, initReturn);
     }
   }
 });
