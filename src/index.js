@@ -3,6 +3,7 @@ require('dotenv').config();
 const TelegramBot = require('node-telegram-bot-api');
 const AdmWarnings = require('./features/AdmWarnings');
 const SaveGroupData = require('./features/init'); 
+const SendNoticeInGroup = require('./features/SendNoticeInGroup');
 
 const token = process.env.TELEGRAM_BOT_TOKEN;
 const admPassword = process.env.TELEGRAM_ADM_PASSWORD;
@@ -15,7 +16,7 @@ const bot = new TelegramBot(token, { polling: true });
 
 bot.on('message', async (msg) => {
   const chatId = msg.chat.id;
-  console.log(msg);
+  // console.log(msg);
   
   if(msg.text === undefined) return; // if contents is a media
 
@@ -33,6 +34,8 @@ bot.on('message', async (msg) => {
       const newAdmComand = new AdmWarnings(true, noticeGroup, msg.from.first_name);
       const response = await newAdmComand.response();
       bot.sendMessage(chatId, response);
+
+      SendNoticeInGroup.getNotiveFromFile();
     } 
     else {
       console.log("INVALID COMMAND");
@@ -55,8 +58,7 @@ bot.on('message', async (msg) => {
 
       const initGroup = new SaveGroupData(groupData);
       const initReturn = await initGroup.register();
-      console.log(initReturn);
       bot.sendMessage(chatId, initReturn);
-    }
+    } 
   }
 });
