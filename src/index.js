@@ -35,7 +35,7 @@ bot.on('message', async (msg) => {
       const response = await newAdmComand.response();
       bot.sendMessage(chatId, response);
 
-      SendNoticeInGroup.getNotice();
+      const formatedNotice = await SendNoticeInGroup.getNotice(bot);
     } 
     else {
       console.log("INVALID COMMAND");
