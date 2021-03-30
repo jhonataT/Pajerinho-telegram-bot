@@ -1,9 +1,19 @@
 const fs = require('fs');
+const { get } = require('http');
 
-const GetRandomJoke = async () => {
+const getRandomJoke = async () => {
     let jokes = fs.readFileSync('DataBase/Jokes.json');
     jokes = JSON.parse(jokes);
-    console.log(jokes.length);
+    console.table(jokes);
+
+    const randomNumber = await getRandomNumber(jokes.length);
+    console.log(randomNumber);
+
+    return `${jokes[randomNumber].title}\n${jokes[randomNumber].description}`;
 }
 
-module.exports = GetRandomJoke;
+const getRandomNumber = (maxLength) => {
+    return Math.round(Math.random() * (maxLength - 0) + 0);
+}
+
+module.exports = getRandomJoke;
