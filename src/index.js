@@ -6,6 +6,7 @@ const SaveGroupData = require('./features/init');
 const SendNoticeInGroup = require('./features/SendNoticeInGroup');
 const GetRandomJoke = require('./features/SendJoke');
 const GetRandomHistory = require('./features/SendHistory');
+const Help = require('./features/Help');
 
 const token = process.env.TELEGRAM_BOT_TOKEN;
 const admPassword = process.env.TELEGRAM_ADM_PASSWORD;
@@ -18,9 +19,9 @@ const bot = new TelegramBot(token, { polling: true });
 
 bot.on('message', async (msg) => {
   const chatId = msg.chat.id;
-  // console.log(msg);
-  
-  if(msg.text === undefined) return; // if contents is a media
+
+  // if contents is a media
+  if(msg.text === undefined) return; 
 
   msg.text = msg.text.toLowerCase();
   
@@ -39,6 +40,13 @@ bot.on('message', async (msg) => {
 
       const formatedNotice = await SendNoticeInGroup.getNotice(bot);
     } 
+    else if(msg.text.toLowerCase().startsWith('/start')) {
+      bot.sendMessage(chatId, "Iniciando o meu trabalho!");
+    }
+    else if(msg.text.toLowerCase().startsWith('/help')) {
+      const helpText = await Help();
+      bot.sendMessage(chatId, helpText);
+    }
     else {
       console.log("INVALID COMMAND");
 
@@ -59,6 +67,10 @@ bot.on('message', async (msg) => {
       const initReturn = await initGroup.register();
       bot.sendMessage(chatId, initReturn);
     } 
+    else if(msg.text.toLowerCase().startsWith('/help')) {
+      const helpText = await Help();
+      bot.sendMessage(chatId, helpText);
+    }
     else if(msg.text.toLocaleLowerCase().indexOf("pajerinho") != -1 && msg.text.toLocaleLowerCase().indexOf("piada") != -1){
       const randomJoke = await GetRandomJoke();
       bot.sendMessage(chatId, randomJoke);
