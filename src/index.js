@@ -5,6 +5,7 @@ const AdmWarnings = require('./features/AdmWarnings');
 const SaveGroupData = require('./features/init'); 
 const SendNoticeInGroup = require('./features/SendNoticeInGroup');
 const GetRandomJoke = require('./features/SendJoke');
+const GetRandomHistory = require('./features/SendHistory');
 
 const token = process.env.TELEGRAM_BOT_TOKEN;
 const admPassword = process.env.TELEGRAM_ADM_PASSWORD;
@@ -58,8 +59,25 @@ bot.on('message', async (msg) => {
       const initReturn = await initGroup.register();
       bot.sendMessage(chatId, initReturn);
     } 
-    else if(msg.text.toLocaleLowerCase().indexOf("pajerinho") && msg.text.toLocaleLowerCase().indexOf("piada")){
-
+    else if(msg.text.toLocaleLowerCase().indexOf("pajerinho") != -1 && msg.text.toLocaleLowerCase().indexOf("piada") != -1){
+      const randomJoke = await GetRandomJoke();
+      bot.sendMessage(chatId, randomJoke);
+    }
+    else if(msg.text.toLocaleLowerCase().indexOf("pajerinho") != -1 && msg.text.toLocaleLowerCase().indexOf("historia") != -1){
+      const randomHistory = await GetRandomHistory();
+      bot.sendMessage(chatId, randomHistory);
+    }
+    else if(msg.text.toLocaleLowerCase().indexOf("pajerinho") != -1 && msg.text.toLocaleLowerCase().indexOf("historias") != -1){
+      const randomHistory = await GetRandomHistory();
+      bot.sendMessage(chatId, randomHistory);
+    }
+    else if(msg.text.toLocaleLowerCase().indexOf("pajerinho") != -1 && msg.text.toLocaleLowerCase().indexOf("história") != -1){
+      const randomHistory = await GetRandomHistory();
+      bot.sendMessage(chatId, randomHistory);
+    }
+    else if(msg.text.toLocaleLowerCase().indexOf("pajerinho") != -1 && msg.text.toLocaleLowerCase().indexOf("histórias") != -1){
+      const randomHistory = await GetRandomHistory();
+      bot.sendMessage(chatId, randomHistory);
     }
   }
 });
