@@ -4,6 +4,7 @@ const TelegramBot = require('node-telegram-bot-api');
 const AdmWarnings = require('./features/AdmWarnings');
 const SaveGroupData = require('./features/init'); 
 const SendNoticeInGroup = require('./features/SendNoticeInGroup');
+const GetRandomJoke = require('./features/SendJoke');
 
 const token = process.env.TELEGRAM_BOT_TOKEN;
 const admPassword = process.env.TELEGRAM_ADM_PASSWORD;
@@ -57,5 +58,8 @@ bot.on('message', async (msg) => {
       const initReturn = await initGroup.register();
       bot.sendMessage(chatId, initReturn);
     } 
+    else if(msg.text.toLocaleLowerCase().indexOf("pajerinho") && msg.text.toLocaleLowerCase().indexOf("piada")){
+
+    }
   }
 });
