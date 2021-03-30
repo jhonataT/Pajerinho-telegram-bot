@@ -1,19 +1,23 @@
 const fs = require('fs');
 
 class SendNoticeInGroup {
-    static async getNotice(){
+    static async getNotice(bot){
         let dataFile = fs.readFileSync('DataBase/Notice.json');
         dataFile = JSON.parse(dataFile);
         console.log(`dataFile(${typeof dataFile}) = ${dataFile.name} | ${dataFile.warning}`);
 
-        await SendNoticeInGroup.sendNotice();
+        const formatedNotice = await SendNoticeInGroup.sendNotice(dataFile.name, dataFile.warning, bot);
+
+        return formatedNotice;
     }
 
-    static async sendNotice(){
-        let groupDataFile = fs.readFileSync('DataBase/Groups.json');
-        groupDataFile = JSON.parse(groupDataFile);
-        console.log(`groupDataFile(${typeof groupDataFile}) = ${groupDataFile.id} | ${groupDataFile.name}`);
-        
+    static async sendNotice(groupName, groupNotice, bot){
+        let groupData = fs.readFileSync('DataBase/Groups.json');
+        groupData = JSON.parse(groupData);
+
+        bot.sendMessage(groupData.id, `⚠️**AVISO:**\n${groupNotice}`)
+
+        return `**AVISO:** \n${groupNotice}`;
     }
 }
 

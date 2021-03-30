@@ -14,7 +14,7 @@ class SaveGroupData {
         if(groupData){
             groupData = JSON.parse(groupData);
             console.log(groupData);
-            return `Já tenho cadastro no `;
+            return `Já tenho cadastro no grupo: ${groupData.name}`;
         }
 
         await fs.appendFile('Database/Groups.json', JSON.stringify(this.data, null, 4), err => {
