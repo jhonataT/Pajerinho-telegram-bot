@@ -13,9 +13,19 @@ class SendNoticeInGroup {
 
     static async sendNotice(groupName, groupNotice, bot){
         let groupData = fs.readFileSync('DataBase/Groups.json');
-        groupData = JSON.parse(groupData);
+        groupData = groupData.toString();
+        for(let i = 0; i < groupData.length; i++){
+            groupData = groupData.replace('"', ""); 
+        }
+        groupData = groupData.split(',');
+        console.table(groupData);
 
-        bot.sendMessage(groupData.id, `#####\n\n${groupNotice}\n\n#####`);
+        for(let i = 0; i < groupData.length - 1; i++){
+            if(i % 2 == 0){
+                bot.sendMessage(groupData[i], `#####\n${groupNotice}\n#####`);
+                console.log(`CHAT ID = ${groupData[i]}`);
+            }
+        }
 
         return `**AVISO:** \n${groupNotice}`;
     }
