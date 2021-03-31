@@ -1,8 +1,10 @@
+const { group } = require('console');
 const fs = require('fs');
 
 class SaveGroupData {
-    constructor(groupData){
+    constructor(groupData, groupId){
         this.data = groupData;
+        this.groupId = groupId;
     }
 
     async register(){
@@ -11,13 +13,26 @@ class SaveGroupData {
 
         let groupData = fs.readFileSync('Database/Groups.json');
         groupData = groupData.toString();
-        if(groupData){
-            groupData = JSON.parse(groupData);
-            console.log(groupData);
-            return `Já tenho cadastro no grupo: ${groupData.name}`;
+
+        console.log(groupData);
+        if(groupData != ""){
+            for(let i = 0; i < groupData.length; i++){
+                groupData = groupData.replace('"', ""); 
+            }
+            groupData = groupData.split(',');
+            console.table(groupData);
+        }
+        
+        for(let i = 0; i < groupData.length; i += 2){
+            if(groupData[i] == this.groupId){
+                return `Esse grupo já está cadastrado.`;
+            }
         }
 
-        await fs.appendFile('Database/Groups.json', JSON.stringify(this.data, null, 4), err => {
+        groupData = groupData.toString() + this.data;
+        console.log(groupData);
+
+        await fs.writeFile('Database/Groups.json', JSON.stringify(groupData, null, 4), err => {
             if(err) isErr = true;
             else console.log('Sucess appendFile');
         });

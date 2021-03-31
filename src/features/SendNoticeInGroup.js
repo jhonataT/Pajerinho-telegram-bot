@@ -15,7 +15,7 @@ class SendNoticeInGroup {
         let groupData = fs.readFileSync('DataBase/Groups.json');
         groupData = JSON.parse(groupData);
 
-        bot.sendMessage(groupData.id, `⚠️**AVISO:**\n${groupNotice}`)
+        bot.sendMessage(groupData.id, `#####\n\n${groupNotice}\n\n#####`);
 
         return `**AVISO:** \n${groupNotice}`;
     }
