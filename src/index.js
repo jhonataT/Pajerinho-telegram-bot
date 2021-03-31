@@ -54,16 +54,15 @@ bot.on('message', async (msg) => {
 
       const response = await newAdmComand.response();
       bot.sendMessage(chatId, response);
-      bot.sendMessage(chatId, await newAdmComand.response());
     }
   }
   else if(msg.chat.type === 'group'){
     console.log('Group message\n');
 
     if(msg.text.toLocaleLowerCase().startsWith('/init')){
-      const groupData = { id: msg.chat.id, name: msg.chat.title };
+      const groupData = `${msg.chat.id},${msg.chat.title},`;
 
-      const initGroup = new SaveGroupData(groupData);
+      const initGroup = new SaveGroupData(groupData, msg.chat.id);
       const initReturn = await initGroup.register();
       bot.sendMessage(chatId, initReturn);
     } 
