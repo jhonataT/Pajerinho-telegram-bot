@@ -1,6 +1,7 @@
 // Pajerinho
 require('dotenv').config();
-const app = require("express");
+const express = require("express");
+const app = express();
 
 const TelegramBot = require('node-telegram-bot-api');
 const AdmWarnings = require('./features/AdmWarnings');
