@@ -11,7 +11,7 @@ class SaveGroupData {
         // Write group id in a JSON file
         let isErr = false;
 
-        let groupData = fs.readFileSync('Database/Groups.json');
+        let groupData = fs.readFileSync('Database/Groups.json', 'utf8');
         groupData = groupData.toString();
 
         console.log(groupData);
