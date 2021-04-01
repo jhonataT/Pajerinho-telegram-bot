@@ -10,9 +10,11 @@ class SaveGroupData {
     register(){
         // Write group id in a JSON file
         let isErr = false;
-
-        let groupData = fs.readFileSync('Database/Groups.json', 'utf8');
+        console.log("BEFORE");
+        let groupData = fs.readFileSync('Database/Groups.json');
         groupData = groupData.toString();
+        console.log("AFTER");
+        
 
         console.log(groupData);
         if(groupData != ""){
