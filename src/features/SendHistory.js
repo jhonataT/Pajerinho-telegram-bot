@@ -5,7 +5,7 @@ const getRandomHistory = async () => {
     history = JSON.parse(history);
     console.table(history);
 
-    const randomNumber = await getRandomNumber(history.length);
+    const randomNumber = await getRandomNumber(history.length - 1);
     console.log(randomNumber);
 
     return `${history[randomNumber].title}\n${history[randomNumber].description}`;

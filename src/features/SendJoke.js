@@ -6,7 +6,7 @@ const getRandomJoke = async () => {
     jokes = JSON.parse(jokes);
     console.table(jokes);
 
-    const randomNumber = await getRandomNumber(jokes.length);
+    const randomNumber = await getRandomNumber(jokes.length - 1);
     console.log(randomNumber);
 
     return `${jokes[randomNumber].title}\n${jokes[randomNumber].description}`;
