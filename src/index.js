@@ -1,5 +1,7 @@
 // Pajerinho
 require('dotenv').config();
+const app = require("express");
+
 const TelegramBot = require('node-telegram-bot-api');
 const AdmWarnings = require('./features/AdmWarnings');
 const SaveGroupData = require('./features/init'); 
@@ -16,6 +18,14 @@ const ADM_PREFIX = `${PREFIX}adm ${admPassword} `;
 
 // Create a bot that uses 'polling' to fetch new updates
 const bot = new TelegramBot(token, { polling: true });
+
+app.set('port', (process.env.PORT || 5000));
+app.get("/", (req, res) => {
+  const result = 'App is running';
+  res.send(result);
+}).listen(app.get('port'), () => {
+  console.log('App is running, server is listening on port ', app.get('port'));
+})
 
 bot.on('message', async (msg) => {
   const chatId = msg.chat.id;
