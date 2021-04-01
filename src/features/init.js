@@ -35,7 +35,7 @@ class SavedataFile {
         console.log(dataFile);
 
         console.log("BEFORE 2");
-        const error = await fs.writeFileSync('DataBase/Groups.json', JSON.stringify(jsonData, null, 4));
+        const error = await fs.writeFileSync('DataBase/Groups.json', JSON.stringify(dataFile, null, 4));
         console.log("AFTER 2");
         if(error) isErr = true;
         else console.log("SUCESS SAVE GROUP ID");
