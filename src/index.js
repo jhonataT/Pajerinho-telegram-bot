@@ -74,7 +74,7 @@ bot.on('message', async (msg) => {
 
       const initGroup = new SaveGroupData(groupData, msg.chat.id);
       const initReturn = await initGroup.register();
-      bot.sendMessage(chatId, initReturn);
+      bot.sendMessage(chatId, initReturn).catch(err => console.log(err));
     } 
     else if(msg.text.toLowerCase().startsWith('/help')) {
       const helpText = await Help();
