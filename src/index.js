@@ -31,7 +31,7 @@ app.get("/", (req, res) => {
 bot.on('message', async (msg) => {
   const chatId = msg.chat.id;
   return Promise.reject('Oops!').catch(err => {
-    throw new Error(err);
+    console.log(err);
   });
 
   // if contents is a media
