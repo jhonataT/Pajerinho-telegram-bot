@@ -7,7 +7,7 @@ class SaveGroupData {
         this.groupId = groupId;
     }
 
-    async register(){
+    register(){
         // Write group id in a JSON file
         let isErr = false;
 
@@ -32,10 +32,9 @@ class SaveGroupData {
         groupData = groupData.toString() + this.data;
         console.log(groupData);
 
-        await fs.writeFile('Database/Groups.json', JSON.stringify(groupData, null, 4), err => {
-            if(err) isErr = true;
-            else console.log('Sucess appendFile');
-        });
+        const err = fs.writeFileSync('Database/Groups.json', JSON.stringify(groupData, null, 4));
+        if(err) isErr = true;
+        else console.log('Sucess writeFile');
 
         if(!isErr) return `Prontinho, grupo cadastrado`;
         else return `Desculpe, ocorreu algum erro ao cadastrar esse grupo.`;
