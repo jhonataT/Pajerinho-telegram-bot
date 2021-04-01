@@ -35,9 +35,9 @@ class SavedataFile {
         console.log(dataFile);
 
         console.log("BEFORE 2");
-        const err = fs.writeFileSync('Database/Groups.json', JSON.stringify(dataFile, null, 4));
+        const error = await fs.writeFileSync('DataBase/Groups.json', JSON.stringify(jsonData, null, 4));
         console.log("AFTER 2");
-        if(err) isErr = true;
+        if(error) isErr = true;
         else console.log("SUCESS SAVE GROUP ID");
 
         if(!isErr) return `Prontinho, grupo cadastrado`;
