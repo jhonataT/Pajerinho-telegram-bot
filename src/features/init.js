@@ -7,13 +7,13 @@ class SavedataFile {
         this.groupId = groupId;
     }
 
-    register(){
+    async register(){
         // Write group id in a JSON file
         let isErr = false;
-        console.log("BEFORE");
+        console.log("BEFORE 1");
         let dataFile = fs.readFileSync('DataBase/Groups.json');
         dataFile = dataFile.toString();
-        console.log("AFTER");
+        console.log("AFTER 1");
         
 
         console.log(dataFile);
@@ -34,9 +34,12 @@ class SavedataFile {
         dataFile = dataFile.toString() + this.data;
         console.log(dataFile);
 
-        const err = fs.writeFileSync('Database/Groups.json', JSON.stringify(dataFile, null, 4));
-        if(err) isErr = true;
-        else console.log('Sucess writeFile');
+        console.log("BEFORE 2");
+        await fs.writeFile('Database/Groups.json', JSON.stringify(dataFile, null, 4), err =>{
+            if(err) isErr = true;
+            else console.log('Sucess writeFile');
+        });
+        console.log("AFTER 2");
 
         if(!isErr) return `Prontinho, grupo cadastrado`;
         else return `Desculpe, ocorreu algum erro ao cadastrar esse grupo.`;
