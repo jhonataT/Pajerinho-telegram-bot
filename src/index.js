@@ -10,8 +10,8 @@ const GetRandomJoke = require('./features/SendJoke');
 const GetRandomHistory = require('./features/SendHistory');
 const Help = require('./features/Help');
 
-const token = process.env.TELEGRAM_BOT_TOKEN;
-const admPassword = process.env.TELEGRAM_ADM_PASSWORD;
+const token = "1623418429:AAHeFLuZV1qRK-oarfmgcAKO3Ql8YEjZeik";
+const admPassword = "12345";
 
 const PREFIX = '/';
 const ADM_PREFIX = `${PREFIX}adm ${admPassword} `;
